@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native";
+
+import { useRouter } from "expo-router";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -12,6 +14,15 @@ import {
 
 export default function Layout({ children }) {
   const insets = useSafeAreaInsets();
+
+  const router = useRouter();
+
+  const handleExplorePress = () => {
+    router.push("/explore");
+  };
+  const handleHomePress = () => {
+    router.push("/(landing)");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,8 +50,29 @@ export default function Layout({ children }) {
           { paddingBottom: insets.bottom, height: hp("8%") + insets.bottom },
         ]}
       >
-        <TabIcon label="Home" name="home" />
-        <TabIcon label="Explore" name="search" />
+        {/* buttons of navigation */}
+        <View style={{ alignItems: "center" }}>
+          <FontAwesome
+            name="home"
+            size={22}
+            color="#b1473c"
+            onPress={handleHomePress}
+          />
+          <Text style={styles.tabLabel} onPress={handleHomePress}>
+            Home
+          </Text>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <FontAwesome
+            name="search"
+            size={22}
+            color="#b1473c"
+            onPress={handleExplorePress}
+          />
+          <Text style={styles.tabLabel} onPress={handleExplorePress}>
+            Explore
+          </Text>
+        </View>
         <TabIcon label="Saved" name="bookmark" />
         <TabIcon label="Profile" name="user" />
       </View>
